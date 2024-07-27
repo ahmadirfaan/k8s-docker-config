@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  db:
+    image: postgis/postgis:13-3.1
+    container_name: postgres_postgis
+    environment:
+      POSTGRES_USER: admin  
+      POSTGRES_PASSWORD: P@ssw0rd123456
+      POSTGRES_DB: postgis_
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  postgres_data:
